@@ -3,7 +3,7 @@
 import renderNewSkillButton from '../components/newSkillButton.js'
 import renderSkill from '../components/skill.js'
 import renderTotalLevel from '../components/totalLevel.js'
-import renderScale from '../components/scale.js'
+import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
 import helpers from '../scripts/helpers.js'
 
@@ -27,7 +27,7 @@ const render = () => {
 
   populateSkills(user);
   renderQuote(root);
-  renderScale(root);
+  renderFooter(root);
 }
 
 render();

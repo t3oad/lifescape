@@ -117,6 +117,7 @@ select {
 
 #new-skill-form > .skill {
   margin-bottom: 5px;
+  cursor: default;
 }
 
 #new-skill-form > input {
@@ -127,7 +128,7 @@ select {
   cursor: pointer;
   height: 32px;
   width: 62px;
-  background-image: url('./res/osrs-new.png');
+  background-image: url(./res/osrs-new.png);
 }
 
 #total-level {
@@ -150,7 +151,7 @@ select {
   margin-left: 4px;
 }
 
-#scale-wrapper {
+#footer-wrapper {
   position: absolute;
   bottom: 10px;
 }
@@ -166,12 +167,20 @@ select {
   margin-right: auto;
 }
 
+#skill-info > .skill {
+  cursor: default;
+}
+
 #skill-name {
   margin-top: 0px;
 }
 
 #skill-xp {
   margin-bottom: 0px;
+}
+
+#import-user-file {
+  display: none;
 }
 
 /* CLASSES */

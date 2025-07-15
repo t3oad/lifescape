@@ -22,9 +22,34 @@ const setLocalStorage = (data) => {
   localStorage.setItem("lifescape", JSON.stringify(data));
 }
 
+const deleteLocalStorage = () => {
+  localStorage.removeItem("lifescape");
+}
+
+//Magic code from https://stackoverflow.com/a/65939108
+const saveTemplateAsFile = (filename, dataObjToWrite) => {
+  const blob = new Blob([JSON.stringify(dataObjToWrite)], { type: "text/json" });
+  const link = document.createElement("a");
+
+  link.download = filename;
+  link.href = window.URL.createObjectURL(blob);
+  link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
+
+  const evt = new MouseEvent("click", {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  });
+
+  link.dispatchEvent(evt);
+  link.remove()
+};
+
 export default {
   xpTable,
   getLevel,
   getLocalStorage,
   setLocalStorage,
+  deleteLocalStorage,
+  saveTemplateAsFile
 }

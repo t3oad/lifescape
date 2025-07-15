@@ -1,6 +1,6 @@
 'use strict'
 
-import renderScale from '../components/scale.js'
+import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
 import helpers from '../scripts/helpers.js'
 
@@ -148,7 +148,7 @@ const render = () => {
     renderActivity(skill.activities[i]);
   }
   renderQuote(root);
-  renderScale(root);
+  renderFooter(root);
 }
 
 render();
