@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lifescape</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts/init.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <p id="quote"></p>
+      <div id="card">
+        <div id="card-inner">
+          <div id="skill-header">
+            <div id="skill-info">
+              <p id="skill-name"></p>
+              <div class="skill">
+                <div class="skill-icon"></div>
+                <div class="skill-level-up"></div>
+                <div class="skill-level-down"></div>
+              </div>
+              <p id="skill-xp"></p>
+            </div>
+            <button id="logbook-button">logbook</button>
+            <button id="edit-skill-button">edit</button>
+          </div>
+          <progress id="xp-progress"></progress>
+          <div id="activities">
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="scripts/skill.js" type="module"></script>
+  </body>
+</html>

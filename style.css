@@ -1,0 +1,255 @@
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #222;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    background-color: #eee;
+  }
+}
+
+@font-face {
+  font-family: "Runescape Small";
+  src: url('./res/runescape_small.ttf');
+}
+
+/* GLOBAL */
+:root {
+  --scale: 1;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  font-family: "Runescape Small";
+  margin: 5px 0px;
+}
+
+button {
+  -webkit-appearance: none;
+  font-family: "Runescape Small";
+  border-radius: 4px;
+}
+
+::file-selector-button {
+  -webkit-appearance: none;
+  font-family: "Runescape Small";
+}
+
+input {
+  -webkit-appearance: none;
+  font-family: "Runescape Small";
+}
+
+input[type="file"] {
+  -webkit-appearance: none;
+  max-width: 100%;
+}
+
+input[type="submit"] {
+  -webkit-appearance: none;
+}
+
+select {
+  -webkit-appearance: none;
+  font-family: "Runescape Small";
+}
+
+/* IDs */
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  width: 100vw;
+}
+
+#quote {
+  position: absolute;
+  top: 10%;
+  color: yellow;
+  text-shadow: 1px 1px 0 black;
+  text-align: center;
+  transform: scale(var(--scale));
+  width: calc(80vw / var(--scale));
+}
+
+#card {
+  width: 208px;
+  height: 288px;
+  background-image: url(./res/osrs-background.png);
+  padding: 9px;
+  box-shadow: 1px 1px 8px #111;
+  font-family: "Runescape Small";
+  transform: scale(var(--scale));
+}
+
+#card-inner {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+#skill-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 62px);
+  grid-template-rows: repeat(8, 32px);
+  height: 100%;
+  column-gap: 2px;
+  row-gap: 2px;
+}
+
+#new-skill-form {
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+#new-skill-form > .skill {
+  margin-bottom: 5px;
+}
+
+#new-skill-form > input {
+  margin-bottom: 5px;
+}
+
+#new-skill-button {
+  cursor: pointer;
+  height: 32px;
+  width: 62px;
+  background-image: url('./res/osrs-new.png');
+}
+
+#total-level {
+  grid-column-start: 3;
+  grid-row-start: 8;
+  background-image: url(./res/osrs-skill-total.png);
+  font-family: "Runescape Small";
+  color: yellow;
+  text-shadow: 1px 1px 0 black;
+  text-align: center;
+  padding-top: 8px;
+  line-height: 0.6;
+}
+
+#new-icon-preview {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+#scale-wrapper {
+  position: absolute;
+  bottom: 10px;
+}
+
+#skill-header {
+  display: flex;
+  align-items: start;
+  justify-content: end;
+}
+
+#skill-info {
+  flex-direction: column;
+  margin-right: auto;
+}
+
+#skill-name {
+  margin-top: 0px;
+}
+
+#skill-xp {
+  margin-bottom: 0px;
+}
+
+/* CLASSES */
+
+.skill {
+  position: relative;
+  cursor: pointer;
+  background-image: url(./res/osrs-skill.png);
+  height: 32px;
+  width: 62px;
+}
+
+.skill-icon {
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.skill-level-up {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  position: absolute;
+  font-family: "Runescape Small";
+  color: yellow;
+  text-shadow: 1px 1px 0 black;
+  margin-left: 35px;
+  margin-top: 4px;
+  width: 14px;
+  height: 14px;
+  text-align: center;
+}
+
+.skill-level-down {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
+  position: absolute;
+  font-family: "Runescape Small";
+  color: yellow;
+  text-shadow: 1px 1px 0 black;
+  margin-left: 42px;
+  margin-top: 18px;
+  width: 14px;
+  height: 14px;
+  text-align: center;
+}
+
+.new-activity {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.new-activity input {
+  min-width: 0;
+}
+
+.new-activity-xp {
+  width: 50px;
+}
+
+.activity-node {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.activity-node p {
+  margin-top: 0px;
+}
+
+.activity-node input {
+  margin-bottom: 5px;
+}
