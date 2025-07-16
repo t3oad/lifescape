@@ -2,27 +2,12 @@ import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
 import helpers from '../scripts/helpers.js'
 
-const parseIcon = (icon) => {
-  return new Promise((resolve, reject) => {
-    if (/\.(?:jpe?g|png|gif)$/i.test(icon.name)) {
-      const reader = new FileReader();
-      reader.readAsDataURL(icon);
-
-      reader.addEventListener("load", () => {
-        resolve(reader.result);
-      })
-    }
-    else {
-      reject("Failed to parse icon.");
-    }
-  });
-}
+let iconURI; //Keep a copy of the icon URI for upload
 
 const parseForm = async (form) => {
   try {
     const formData = new FormData(form);
 
-    let icon;
     let skillName;
     let activities = [];
     const skill = {}
@@ -32,8 +17,7 @@ const parseForm = async (form) => {
     let activityXP = [];
 
     for (const [ key, value ] of formData.entries()) {
-      if (key == "icon") icon = value;
-      else if (key == "name") skillName = value;
+      if (key == "name") skillName = value;
       else if (key == "activity-name") activityNames.push(value);
       else if (key == "activity-type") activityTypes.push(value);
       else if (key == "activity-xp") activityXP.push(value);
@@ -55,8 +39,7 @@ const parseForm = async (form) => {
       activities.push(activity);
     }
 
-    const parsedIcon = await parseIcon(icon);
-    skill.icon = parsedIcon;
+    skill.icon = iconURI;
     skill.name = skillName;
     skill.activities = activities;
     skill.xp = 0;
@@ -131,13 +114,6 @@ const render = () => {
   submit.value= "Submit";
 
   //Add listeners
-  addIconButton.addEventListener('change', e => {
-    if (e.target.files[0]) {
-      const newIconPreview = document.getElementById('new-icon-preview');
-      newIconPreview.style.backgroundImage = `url(${URL.createObjectURL(e.target.files[0])})`;
-    }
-  });
-
   addActivityButton.addEventListener('click', e => {
     renderActivity();
   });
@@ -157,6 +133,22 @@ const render = () => {
       console.error(err)
     }
   })
+
+  //Code from: https://img.ly/blog/how-to-resize-an-image-with-javascript/
+  addIconButton.addEventListener('change', async e => {
+    const [file] = addIconButton.files;
+    const imageToResize = document.createElement('img');
+    const newIconPreview = document.getElementById('new-icon-preview');
+
+    imageToResize.src = await helpers.fileToDataURI(file);
+    imageToResize.addEventListener('load', () => {
+      const url = helpers.resizeImage(imageToResize);
+
+      iconURI = url;
+      newIconPreview.style.backgroundImage = `url(${url})`;
+    });
+  });
+
 
   //Build structure
   form.appendChild(submit);
