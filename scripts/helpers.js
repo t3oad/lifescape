@@ -45,11 +45,36 @@ const saveTemplateAsFile = (filename, dataObjToWrite) => {
   link.remove()
 };
 
+//Code from: https://img.ly/blog/how-to-resize-an-image-with-javascript/
+const resizeImage = (imgToResize) => {
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+
+  const originalWidth = imgToResize.width;
+  const originalHeight = imgToResize.height;
+
+  const canvasWidth = 25;
+  const canvasHeight = 25;
+
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
+
+  context.drawImage(
+    imgToResize,
+    0,
+    0,
+    25,
+    25
+  );
+  return canvas.toDataURL();
+}
+
 export default {
   xpTable,
   getLevel,
   getLocalStorage,
   setLocalStorage,
   deleteLocalStorage,
-  saveTemplateAsFile
+  saveTemplateAsFile,
+  resizeImage
 }

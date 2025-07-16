@@ -103,8 +103,7 @@ select {
 #skill-grid {
   display: grid;
   grid-template-columns: repeat(3, 62px);
-  grid-template-rows: repeat(8, 32px);
-  height: 100%;
+  grid-auto-rows: 32px;
   column-gap: 2px;
   row-gap: 2px;
 }
