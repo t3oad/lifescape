@@ -1,6 +1,6 @@
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
-import renderActivity from '../components/newActivity.js'
+import renderNewActivity from '../components/newActivity.js'
 import helpers from '../scripts/helpers.js'
 
 let iconURI; //Keep a copy of the icon URI for upload
@@ -90,7 +90,7 @@ const render = () => {
 
   //Add listeners
   addActivityButton.addEventListener('click', e => {
-    renderActivity(form);
+    renderNewActivity(form);
   });
 
   submit.addEventListener('click', async e => {

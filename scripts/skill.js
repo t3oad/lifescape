@@ -2,6 +2,7 @@
 
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
+import renderActivity from '../components/activity.js'
 import helpers from '../scripts/helpers.js'
 
 const getSkill = () => {
@@ -32,90 +33,11 @@ const getProgress = (skill) => {
   return { max, value };
 }
 
-const logActivity = (name, xp) => {
-  const params = new URLSearchParams(document.location.search);
-  const skillId = params.get("id");
-  const user = helpers.getLocalStorage();
-  const date = new Date();
-  const dateParsed = date.toISOString();
-
-  const log = {
-    activity: name,
-    xp: xp,
-    date: dateParsed
-  }
-
-  user.skills[skillId].log.unshift(log);
-  user.skills[skillId].xp += parseInt(xp);
-
-  helpers.setLocalStorage(user);
-  location.assign(`./skill.html?id=${skillId}`)
-}
-
-const createActivityXP = (activity) => {
-  let activityXP;
-
-  if (activity.type == "One-Time") {
-    activityXP = document.createElement('p');
-    activityXP.innerHTML = activity.xp;
-  }
-  else {
-    activityXP = document.createElement('input');
-    activityXP.type = "number";
-    activityXP.placeholder = "Time in minutes";
-    activityXP.name = "xp";
-  }
-
-  return activityXP;
-}
-
-const renderActivity = (activity) => {
-  //Create elements
-  const card = document.getElementById("card-inner");
-  const logbookButton = document.getElementById("logbook-button");
-  const activityNode = document.createElement('div');
-  const activityName = document.createElement('p');
-  const activityXP = createActivityXP(activity);
-  const activitySubmit = document.createElement('input');
-
-  //Add classes and ids
-  activityNode.className = "activity-node";
-
-  //Add attributes and innerHTML
-  activityName.innerHTML = activity.name;
-  activitySubmit.type = "submit";
-  activitySubmit.value = "Log activity";
-  
-  //Add event listeners
-  activitySubmit.addEventListener('click', e => {
-    e.preventDefault();
-
-    if (activity.type == "One-Time") {
-      logActivity(activity.name, activityXP.innerHTML);
-    }
-    else {
-      logActivity(activity.name, activityXP.value);
-    }
-  })
-
-  logbookButton.addEventListener('click', e => {
-    e.preventDefault();
-
-    const params = new URLSearchParams(document.location.search);
-    const skillId = params.get("id");
-    location.assign(`./log.html?id=${skillId}`)
-  })
-  
-  //Build structure
-  activityNode.appendChild(activityName);
-  activityNode.appendChild(activityXP);
-  activityNode.appendChild(activitySubmit);
-  card.appendChild(activityNode);
-}
-
 const render = () => {
   //Create elements
   const root = document.getElementById('root');
+  const card = document.getElementById('card-inner');
+  const logbookButton = document.getElementById("logbook-button");
   const skillNode = document.querySelector('.skill');
   const skillIcon = document.querySelector('.skill-icon');
   const skillLevelUp = document.querySelector('.skill-level-up');
@@ -123,7 +45,7 @@ const render = () => {
   const skillName = document.getElementById('skill-name');
   const skillXP = document.getElementById('skill-xp');
   const progressNode = document.getElementById('xp-progress');
-  const activities = document.getElementById('activites');
+  const activities = document.getElementById('activities');
 
   const skill = getSkill();
   const progress = getProgress(skill);
@@ -142,10 +64,17 @@ const render = () => {
   progressNode.value = progress.value;
 
   //Add event listeners
+  logbookButton.addEventListener('click', e => {
+    e.preventDefault();
+
+    const params = new URLSearchParams(document.location.search);
+    const skillId = params.get("id");
+    location.assign(`./log.html?id=${skillId}`)
+  });
 
   //Build structure
   for (let i = 0; i < skill.activities.length; i++) {
-    renderActivity(skill.activities[i]);
+    renderActivity(card, skill.activities[i]);
   }
   renderQuote(root);
   renderFooter(root);

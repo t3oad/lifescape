@@ -1,6 +1,6 @@
 'use strict'
 
-const renderActivity = (parentNode) => {
+const renderNewActivity = (parentNode) => {
   //Create elements
   const el = document.createElement('div');
   const name = document.createElement('input');
@@ -46,4 +46,4 @@ const renderActivity = (parentNode) => {
   parentNode.appendChild(el);
 }
 
-export default renderActivity;
+export default renderNewActivity;
