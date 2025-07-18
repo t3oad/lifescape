@@ -1,20 +1,42 @@
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
+import renderActivity from '../components/newActivity.js'
 import helpers from '../scripts/helpers.js'
 
 let iconURI; //Keep a copy of the icon URI for upload
 
+const validateInput = (skill) => {
+  //Validate skill
+  if (!skill.icon || !iconURI) throw new Error("Please upload an icon.");
+  if (!skill.name || skill.name.length == 0) throw new Error("Please include skill name.");
+
+  //Validate activities
+  for (let i = 0; i < skill.activities.length; i++) {
+    const activity = skill.activities[i];
+
+    if (!activity.name || activity.name.length == 0) throw new Error("Please include activity name.");
+    if (!activity.type) throw new Error("Please select an activity type.");
+
+    if (activity.type == "Timed") continue;
+    else if (activity.type == "One-Time" && !activity.xp) throw new Error("One-Time activities require an XP value.");
+    else if (activity.type == "One-Time" && activity.xp) continue;
+    else throw new Error("Unrecognized activity type.");
+  }
+
+  return true;
+}
+
 const parseForm = async (form) => {
   try {
     const formData = new FormData(form);
-
     let skillName;
-    let activities = [];
+    const activities = [];
     const skill = {}
 
-    let activityNames = [];
-    let activityTypes = [];
-    let activityXP = [];
+    //Parse activities
+    const activityNames = [];
+    const activityTypes = [];
+    const activityXP = [];
 
     for (const [ key, value ] of formData.entries()) {
       if (key == "name") skillName = value;
@@ -28,75 +50,28 @@ const parseForm = async (form) => {
       const activity = {
         name: activityNames[i],
         type: activityTypes[i],
-        xp: activityXP[i],
       }
 
       if (activity.type == "One-Time") {
-        activity.xp = activityXP[activityXPCounter];
+        activity.xp = parseInt(activityXP[activityXPCounter]);
         activityXPCounter++;
       }
 
       activities.push(activity);
     }
 
+    //Build skill object
     skill.icon = iconURI;
     skill.name = skillName;
     skill.activities = activities;
     skill.xp = 0;
     skill.log = [];
 
-    return skill;
+    if (validateInput(skill)) return skill;
   }
   catch (err) {
-    console.error(err);
+    throw err;
   }
-}
-
-const renderActivity = () => {
-  //Create elements
-  const form = document.getElementById('new-skill-form');
-  const wrapper = document.createElement('div');
-  const name = document.createElement('input');
-  const xp = document.createElement('input');
-  const type = document.createElement('select');
-  const remove = document.createElement('button');
-
-  //Add classes and ids
-  wrapper.className = "new-activity";
-  name.className = "new-activity-name";
-  xp.className = "new-activity-xp";
-  type.className = "new-activity-type";
-  remove.className = "new-activity-remove";
-
-  //Add attributes and innerHTML
-  name.type = "text"
-  name.name = "activity-name";
-  name.placeholder = "Activity name";
-  xp.type = "text"
-  xp.name = "activity-xp";
-  xp.placeholder = "XP";
-  xp.disabled = true;
-  type.appendChild(new Option('Timed', 'Timed'));
-  type.appendChild(new Option('One-Time', 'One-Time'));
-  type.name = "activity-type";
-  remove.innerHTML = "x";
-
-  //Add event listeners
-  remove.addEventListener('click', e => {
-    wrapper.remove();
-  });
-
-  type.addEventListener('change', e => {
-    if (e.target.value == "Timed") xp.disabled = true;
-    else xp.disabled = false;
-  });
-
-  //Build structure
-  wrapper.appendChild(name);
-  wrapper.appendChild(xp);
-  wrapper.appendChild(type);
-  wrapper.appendChild(remove);
-  form.appendChild(wrapper);
 }
 
 const render = () => {
@@ -115,7 +90,7 @@ const render = () => {
 
   //Add listeners
   addActivityButton.addEventListener('click', e => {
-    renderActivity();
+    renderActivity(form);
   });
 
   submit.addEventListener('click', async e => {
