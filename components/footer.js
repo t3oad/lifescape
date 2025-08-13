@@ -14,6 +14,7 @@ const renderFooter = (parentNode) => {
   const importUserFile = document.createElement('input');
   const exportUser = document.createElement('button');
   const resetUser = document.createElement('button');
+  const login = document.createElement('button');
 
   //Add classes and ids
   el.id = "footer-wrapper";
@@ -25,8 +26,11 @@ const renderFooter = (parentNode) => {
   scale15.innerHTML = "1.5x"
   scale2.innerHTML = "2x"
   importUser.innerHTML = "import"
+  importUser.style.marginLeft = "5px";
   exportUser.innerHTML = "export"
   resetUser.innerHTML = "reset"
+  login.innerHTML = "login";
+  login.style.marginLeft = "5px";
 
   //Add event listeners
   scale1.addEventListener('click', e => {
@@ -69,8 +73,10 @@ const renderFooter = (parentNode) => {
     helpers.saveTemplateAsFile('lifescape.json', user);
   });
   resetUser.addEventListener('click', e => {
-    helpers.deleteLocalStorage();
-    location.assign(`./index.html`);
+    if (confirm("Are you sure you want to reset your data?")) {
+      helpers.deleteLocalStorage();
+      location.assign(`./index.html`);
+    }
   });
 
   //Build structure
@@ -80,6 +86,7 @@ const renderFooter = (parentNode) => {
   el.appendChild(importUser);
   el.appendChild(exportUser);
   el.appendChild(resetUser);
+  el.appendChild(login);
   parentNode.appendChild(el);
 }
 
