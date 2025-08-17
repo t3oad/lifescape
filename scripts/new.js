@@ -54,6 +54,8 @@ const parseForm = async (form) => {
 
       if (activity.type == "One-Time") {
         activity.xp = parseInt(activityXP[activityXPCounter]);
+        if (!activity.xp) throw new Error("The XP value must be a number.");
+
         activityXPCounter++;
       }
 
@@ -105,7 +107,7 @@ const render = () => {
       location.assign(`./index.html`);
     }
     catch (err) {
-      console.error(err)
+      alert(err);
     }
   })
 

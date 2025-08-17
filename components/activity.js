@@ -25,6 +25,9 @@ const logActivity = (name, xp) => {
   const user = helpers.getLocalStorage();
   const date = new Date();
   const dateParsed = date.toISOString();
+  const xpParsed = parseInt(xp);
+
+  if (!xpParsed) throw new Error("Please enter a number.");
 
   const log = {
     activity: name,
@@ -40,37 +43,42 @@ const logActivity = (name, xp) => {
 }
 
 const renderActivity = (parentNode, activity) => {
-  //Create elements
-  const el = document.createElement('div');
-  const activityName = document.createElement('p');
-  const activityXP = createActivityXP(activity);
-  const activitySubmit = document.createElement('input');
+    //Create elements
+    const el = document.createElement('div');
+    const activityName = document.createElement('p');
+    const activityXP = createActivityXP(activity);
+    const activitySubmit = document.createElement('input');
 
-  //Add classes and ids
-  el.className = "activity-node";
+    //Add classes and ids
+    el.className = "activity-node";
 
-  //Add attributes and innerHTML
-  activityName.innerHTML = activity.name;
-  activitySubmit.type = "submit";
-  activitySubmit.value = "Log activity";
-  
-  //Add event listeners
-  activitySubmit.addEventListener('click', e => {
-    e.preventDefault();
+    //Add attributes and innerHTML
+    activityName.innerHTML = activity.name;
+    activitySubmit.type = "submit";
+    activitySubmit.value = "Log activity";
+    
+    //Add event listeners
+    activitySubmit.addEventListener('click', e => {
+      try {
+        e.preventDefault();
 
-    if (activity.type == "One-Time") {
-      logActivity(activity.name, activityXP.innerHTML);
-    }
-    else {
-      logActivity(activity.name, activityXP.value);
-    }
-  })
+        if (activity.type == "One-Time") {
+          logActivity(activity.name, activityXP.innerHTML);
+        }
+        else {
+          logActivity(activity.name, activityXP.value);
+        }
+      }
+      catch (err) {
+        alert(err);
+      }
+    })
 
-  //Build structure
-  el.appendChild(activityName);
-  el.appendChild(activityXP);
-  el.appendChild(activitySubmit);
-  parentNode.appendChild(el);
+    //Build structure
+    el.appendChild(activityName);
+    el.appendChild(activityXP);
+    el.appendChild(activitySubmit);
+    parentNode.appendChild(el);
 }
 
 export default renderActivity;
