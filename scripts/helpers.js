@@ -14,6 +14,15 @@ const getLevel = (xp) => {
   return level;
 }
 
+const getSkill = () => {
+  const params = new URLSearchParams(document.location.search);
+  const skillId = params.get("id");
+  const user = JSON.parse(localStorage.getItem('lifescape'));
+  const skill = user.skills[skillId];
+
+  return skill;
+}
+
 const getLocalStorage = () => {
   return JSON.parse(localStorage.getItem("lifescape"));
 }
@@ -78,6 +87,7 @@ function resizeImage(imgToResize) {
 export default {
   xpTable,
   getLevel,
+  getSkill,
   getLocalStorage,
   setLocalStorage,
   deleteLocalStorage,

@@ -108,18 +108,21 @@ select {
   row-gap: 2px;
 }
 
-#new-skill-form {
+#new-skill-form,
+#edit-skill-form {
   overflow: auto;
   width: 100%;
   height: 100%;
 }
 
-#new-skill-form > .skill {
+#new-skill-form > .skill, 
+#edit-skill-form > .skill {
   margin-bottom: 5px;
   cursor: default;
 }
 
-#new-skill-form > input {
+#new-skill-form > input,
+#edit-skill-form > input {
   margin-bottom: 5px;
 }
 
@@ -142,7 +145,8 @@ select {
   line-height: 0.6;
 }
 
-#new-icon-preview {
+#new-icon-preview,
+#edit-icon-preview {
   position: absolute;
   width: 25px;
   height: 25px;
@@ -232,16 +236,19 @@ select {
   text-align: center;
 }
 
-.new-activity {
+.new-activity,
+.edit-activity {
   display: flex;
   margin-bottom: 5px;
 }
 
-.new-activity input {
+.new-activity input,
+.edit-activity input{
   min-width: 0;
 }
 
-.new-activity-xp {
+.new-activity-xp,
+.edit-activity-xp {
   width: 50px;
 }
 

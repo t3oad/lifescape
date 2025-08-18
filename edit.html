@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lifescape</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <script src="scripts/init.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <p id="quote"></p>
+      <div id="card">
+        <form id="edit-skill-form">
+          <div class="skill">
+            <div id="edit-icon-preview"></div>
+            <div class="skill-level-up"></div>
+            <div class="skill-level-down"></div>
+          </div>
+          <input id="add-icon-button" type="file" name="icon">
+          <input id="edit-skill-name" type="text" name="name" placeholder="Skill name">
+          <button id="add-activity-button" type="button">Add activity</button>
+        </form>
+      </div>
+    </div>
+    <script src="scripts/edit.js" type="module"></script>
+  </body>
+</html>

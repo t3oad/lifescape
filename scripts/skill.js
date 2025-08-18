@@ -5,15 +5,6 @@ import renderQuote from '../components/quote.js'
 import renderActivity from '../components/activity.js'
 import helpers from '../scripts/helpers.js'
 
-const getSkill = () => {
-  const params = new URLSearchParams(document.location.search);
-  const skillId = params.get("id");
-  const user = JSON.parse(localStorage.getItem('lifescape'));
-  const skill = user.skills[skillId];
-
-  return skill;
-}
-
 const getProgress = (skill) => {
   const level = helpers.getLevel(skill.xp);
   let low = 0;
@@ -38,6 +29,7 @@ const render = () => {
   const root = document.getElementById('root');
   const card = document.getElementById('card-inner');
   const logbookButton = document.getElementById("logbook-button");
+  const editButton = document.getElementById("edit-skill-button");
   const skillNode = document.querySelector('.skill');
   const skillIcon = document.querySelector('.skill-icon');
   const skillLevelUp = document.querySelector('.skill-level-up');
@@ -47,7 +39,7 @@ const render = () => {
   const progressNode = document.getElementById('xp-progress');
   const activities = document.getElementById('activities');
 
-  const skill = getSkill();
+  const skill = helpers.getSkill();
   const progress = getProgress(skill);
   const level = helpers.getLevel(skill.xp);
 
@@ -70,6 +62,14 @@ const render = () => {
     const params = new URLSearchParams(document.location.search);
     const skillId = params.get("id");
     location.assign(`./log.html?id=${skillId}`)
+  });
+
+  editButton.addEventListener('click', e => {
+    e.preventDefault();
+
+    const params = new URLSearchParams(document.location.search);
+    const skillId = params.get("id");
+    location.assign(`./edit.html?id=${skillId}`)
   });
 
   //Build structure
