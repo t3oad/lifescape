@@ -139,14 +139,14 @@ const render = () => {
   addIconButton.addEventListener('change', async e => {
     const [file] = addIconButton.files;
     const imageToResize = document.createElement('img');
-    const newIconPreview = document.getElementById('new-icon-preview');
+    const editIconPreview = document.getElementById('edit-icon-preview');
 
     imageToResize.src = await helpers.fileToDataURI(file);
     imageToResize.addEventListener('load', () => {
       const url = helpers.resizeImage(imageToResize);
 
       iconURI = url;
-      newIconPreview.style.backgroundImage = `url(${url})`;
+      editIconPreview.style.backgroundImage = `url(${url})`;
     });
   });
 
