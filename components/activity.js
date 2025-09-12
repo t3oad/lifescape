@@ -26,6 +26,7 @@ const logActivity = (name, xp) => {
   const date = new Date();
   const dateParsed = date.toISOString();
   const xpParsed = parseInt(xp);
+  const skill = user.skills[skillId];
 
   if (!xpParsed) throw new Error("Please enter a number.");
 
@@ -35,10 +36,16 @@ const logActivity = (name, xp) => {
     date: dateParsed
   }
 
-  user.skills[skillId].log.unshift(log);
-  user.skills[skillId].xp += parseInt(xp);
-
+  const oldLevel = helpers.getLevel(skill.xp);
+  skill.log.unshift(log);
+  skill.xp += parseInt(xp);
+  const newLevel = helpers.getLevel(skill.xp);
   helpers.setLocalStorage(user);
+
+  if (newLevel > oldLevel) {
+    alert(`Congratulations!\n\nYour ${skill.name} level is now ${newLevel}.`);
+  }
+
   location.assign(`./skill.html?id=${skillId}`)
 }
 
