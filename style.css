@@ -180,6 +180,10 @@ select {
   cursor: default;
 }
 
+#edit-skill-button {
+  margin-left: 2px;
+}
+
 #skill-name {
   margin-top: 0px;
 }
