@@ -295,3 +295,10 @@ select {
 .activity-node input {
   margin-bottom: 5px;
 }
+
+.logbook-entry {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 5px;
+}

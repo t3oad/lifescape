@@ -13,6 +13,13 @@ const getLog = () => {
   return log;
 }
 
+const parseDate = (date) => {
+  let d = new Date(date);
+  const parsed = d.toUTCString();
+
+  return parsed;
+}
+
 const render = () => {
   const root = document.getElementById('root');
   const card = document.getElementById('card-inner');
@@ -21,7 +28,11 @@ const render = () => {
 
   for (let i = 0; i < log.length; i++) {
     const entry = document.createElement('p');
-    entry.innerHTML = `${log[i].activity} | ${log[i].xp}xp | ${log[i].date}`
+    const date = parseDate(log[i].date);
+
+    entry.className = "logbook-entry";
+    entry.innerHTML = `${date}</br>${log[i].activity} - ${log[i].xp}xp`
+
     card.appendChild(entry);
   }
 
