@@ -14,23 +14,22 @@ const renderFooter = (parentNode) => {
   const importUserFile = document.createElement('input');
   const exportUser = document.createElement('button');
   const resetUser = document.createElement('button');
-  const login = document.createElement('button');
 
   //Add classes and ids
   el.id = "footer-wrapper";
   importUserFile.id = "import-user-file";
+  resetUser.id = "reset-user";
 
   //Add attributes and innerHTML
   importUserFile.type = "file";
   scale1.innerHTML = "1x"
+  scale1.style.marginLeft = "0px";
   scale15.innerHTML = "1.5x"
   scale2.innerHTML = "2x"
   importUser.innerHTML = "import"
   importUser.style.marginLeft = "5px";
   exportUser.innerHTML = "export"
   resetUser.innerHTML = "reset"
-  login.innerHTML = "login";
-  login.style.marginLeft = "5px";
 
   //Add event listeners
   scale1.addEventListener('click', e => {
@@ -86,7 +85,6 @@ const renderFooter = (parentNode) => {
   el.appendChild(importUser);
   el.appendChild(exportUser);
   el.appendChild(resetUser);
-  el.appendChild(login);
   parentNode.appendChild(el);
 }
 

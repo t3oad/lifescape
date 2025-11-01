@@ -35,33 +35,30 @@ p {
 }
 
 button {
-  -webkit-appearance: none;
   font-family: "Runescape Small";
   border-radius: 4px;
 }
 
 ::file-selector-button {
-  -webkit-appearance: none;
   font-family: "Runescape Small";
+  border-radius: 4px;
 }
 
 input {
-  -webkit-appearance: none;
   font-family: "Runescape Small";
+  border-radius: 4px;
 }
 
 input[type="file"] {
-  -webkit-appearance: none;
   max-width: 100%;
 }
 
 input[type="submit"] {
-  -webkit-appearance: none;
 }
 
 select {
-  -webkit-appearance: none;
   font-family: "Runescape Small";
+  border-radius: 4px;
 }
 
 /* IDs */
@@ -159,6 +156,15 @@ select {
   bottom: 10px;
 }
 
+#footer-wrapper button{
+  margin-left: 1px;
+}
+
+#reset-user {
+  background-color: #e6352b;
+  color: white;
+}
+
 #skill-header {
   display: flex;
   align-items: start;
@@ -180,6 +186,10 @@ select {
 
 #skill-xp {
   margin-bottom: 0px;
+}
+
+#xp-progress {
+  margin-bottom: 2px;
 }
 
 #import-user-file {
@@ -243,13 +253,30 @@ select {
 }
 
 .new-activity input,
-.edit-activity input{
+.edit-activity input {
   min-width: 0;
+}
+
+.new-activity *,
+.edit-activity * {
+  margin-left: 2px;
+}
+
+.new-activity-name,
+.edit-activity-name {
+  margin-left: 0px;
+  flex: 1;
 }
 
 .new-activity-xp,
 .edit-activity-xp {
-  width: 50px;
+  width: 30px;
+}
+
+.new-activity-remove,
+.edit-activity-remove {
+  background-color: #e6352b;
+  color: white;
 }
 
 .activity-node {
