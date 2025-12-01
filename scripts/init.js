@@ -16,8 +16,25 @@ const initLocalStorage = () => {
   return JSON.parse(localStorage.getItem('lifescape'));
 }
 
+const setPersistentStorage = () => {
+  if (navigator.storage && navigator.storage.persist) {
+    navigator.storage.persist().then((persistent) => {
+      if (persistent) {
+        alert("persistent")
+      }
+      else {
+        alert("not persistent")
+      }
+    });
+  }
+  else {
+    alert(navigator.storage)
+  }
+}
+
 const init = () => {
   const user = initLocalStorage();
+  setPersistentStorage();
   setScale(user);
 }
 
