@@ -27,12 +27,39 @@ const getLocalStorage = () => {
   return JSON.parse(localStorage.getItem("lifescape"));
 }
 
-const setLocalStorage = (data) => {
-  localStorage.setItem("lifescape", JSON.stringify(data));
+const setStorage = async (data) => {
+  try {
+    await backupOnline(data);
+    localStorage.setItem("lifescape", JSON.stringify(data));
+  }
+  catch (err) {
+    console.error(err);
+  }
 }
 
 const deleteLocalStorage = () => {
   localStorage.removeItem("lifescape");
+}
+
+const backupOnline = async (data) => {
+  try {
+    const response = await fetch(`http://localhost:3000/uuid/${data.uuid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const result = await response.json();
+  }
+  catch (error) {
+    console.error(error.message);
+  }
 }
 
 //Magic code from https://stackoverflow.com/a/65939108
@@ -89,8 +116,9 @@ export default {
   getLevel,
   getSkill,
   getLocalStorage,
-  setLocalStorage,
+  setStorage,
   deleteLocalStorage,
+  backupOnline,
   saveTemplateAsFile,
   fileToDataURI,
   resizeImage

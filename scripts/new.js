@@ -103,7 +103,7 @@ const render = () => {
       const skill = await parseForm(form);
 
       user.skills.push(skill);
-      helpers.setLocalStorage(user);
+      await helpers.setStorage(user);
       location.assign(`./index.html`);
     }
     catch (err) {

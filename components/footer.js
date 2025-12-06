@@ -32,23 +32,38 @@ const renderFooter = (parentNode) => {
   resetUser.innerHTML = "reset"
 
   //Add event listeners
-  scale1.addEventListener('click', e => {
-    root.style.setProperty('--scale', 1);
+  scale1.addEventListener('click', async e => {
+    try {
+      root.style.setProperty('--scale', 1);
 
-    localStorage.scale = 1;
-    helpers.setLocalStorage(localStorage);
+      localStorage.scale = 1;
+      await helpers.setStorage(localStorage);
+    }
+    catch (err) {
+      console.error(err);
+    }
   });
-  scale15.addEventListener('click', e => {
-    root.style.setProperty('--scale', 1.5);
+  scale15.addEventListener('click', async e => {
+    try {
+      root.style.setProperty('--scale', 1.5);
 
-    localStorage.scale = 1.5;
-    helpers.setLocalStorage(localStorage);
+      localStorage.scale = 1.5;
+      await helpers.setStorage(localStorage);
+    }
+    catch (err) {
+      console.error(err);
+    }
   });
-  scale2.addEventListener('click', e => {
-    root.style.setProperty('--scale', 2);
+  scale2.addEventListener('click', async e => {
+    try {
+      root.style.setProperty('--scale', 2);
 
-    localStorage.scale = 2;
-    helpers.setLocalStorage(localStorage);
+      localStorage.scale = 2;
+      await helpers.setStorage(localStorage);
+    }
+    catch (err) {
+      console.error(err);
+    }
   });
 
   importUser.addEventListener('click', e => {
@@ -58,10 +73,15 @@ const renderFooter = (parentNode) => {
     if (e.target.files[0]) {
       const reader = new FileReader();
 
-      reader.addEventListener('load', () => {
-        const user = JSON.parse(reader.result);
-        helpers.setLocalStorage(user);
-        location.assign(`./index.html`);
+      reader.addEventListener('load', async () => {
+        try {
+          const user = JSON.parse(reader.result);
+          await helpers.setLocalStorage(user);
+          location.assign(`./index.html`);
+        }
+        catch (err) {
+          console.error(err);
+        }
       })
       reader.readAsText(e.target.files[0]);
     }

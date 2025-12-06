@@ -19,34 +19,39 @@ const createActivityXP = (activity) => {
   return activityXP;
 }
 
-const logActivity = (name, xp) => {
-  const params = new URLSearchParams(document.location.search);
-  const skillId = params.get("id");
-  const user = helpers.getLocalStorage();
-  const date = new Date();
-  const dateParsed = date.toISOString();
-  const xpParsed = parseInt(xp);
-  const skill = user.skills[skillId];
+const logActivity = async (name, xp) => {
+  try {
+    const params = new URLSearchParams(document.location.search);
+    const skillId = params.get("id");
+    const user = helpers.getLocalStorage();
+    const date = new Date();
+    const dateParsed = date.toISOString();
+    const xpParsed = parseInt(xp);
+    const skill = user.skills[skillId];
 
-  if (!xpParsed) throw new Error("Please enter a number.");
+    if (!xpParsed) throw new Error("Please enter a number.");
 
-  const log = {
-    activity: name,
-    xp: xp,
-    date: dateParsed
+    const log = {
+      activity: name,
+      xp: xp,
+      date: dateParsed
+    }
+
+    const oldLevel = helpers.getLevel(skill.xp);
+    skill.log.unshift(log);
+    skill.xp += parseInt(xp);
+    const newLevel = helpers.getLevel(skill.xp);
+    await helpers.setStorage(user);
+
+    if (newLevel > oldLevel) {
+      alert(`Congratulations!\n\nYour ${skill.name} level is now ${newLevel}.`);
+    }
+
+    location.assign(`./skill.html?id=${skillId}`)
   }
-
-  const oldLevel = helpers.getLevel(skill.xp);
-  skill.log.unshift(log);
-  skill.xp += parseInt(xp);
-  const newLevel = helpers.getLevel(skill.xp);
-  helpers.setLocalStorage(user);
-
-  if (newLevel > oldLevel) {
-    alert(`Congratulations!\n\nYour ${skill.name} level is now ${newLevel}.`);
+  catch (err) {
+    console.error(err);
   }
-
-  location.assign(`./skill.html?id=${skillId}`)
 }
 
 const renderActivity = (parentNode, activity) => {
@@ -65,15 +70,15 @@ const renderActivity = (parentNode, activity) => {
     activitySubmit.value = "Log activity";
     
     //Add event listeners
-    activitySubmit.addEventListener('click', e => {
+    activitySubmit.addEventListener('click', async e => {
       try {
         e.preventDefault();
 
         if (activity.type == "One-Time") {
-          logActivity(activity.name, activityXP.innerHTML);
+          await logActivity(activity.name, activityXP.innerHTML);
         }
         else {
-          logActivity(activity.name, activityXP.value);
+          await logActivity(activity.name, activityXP.value);
         }
       }
       catch (err) {
