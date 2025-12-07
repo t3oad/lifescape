@@ -21,13 +21,18 @@ const populateSkills = (user) => {
   renderTotalLevel(skillGrid);
 }
 
-const render = () => {
-  const root = document.getElementById('root');
-  const user = helpers.getLocalStorage();
+const render = async () => {
+  try {
+    const root = document.getElementById('root');
+    const user = await helpers.getStorage();
 
-  populateSkills(user);
-  renderQuote(root);
-  renderFooter(root);
+    populateSkills(user);
+    renderQuote(root);
+    renderFooter(root);
+  }
+  catch (err) {
+    console.error(err);
+  }
 }
 
 render();

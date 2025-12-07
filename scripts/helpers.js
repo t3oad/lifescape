@@ -27,6 +27,41 @@ const getLocalStorage = () => {
   return JSON.parse(localStorage.getItem("lifescape"));
 }
 
+const getStorage = async () => {
+  try {
+    if (!localStorage.getItem('lifescape')) {
+      const response = await fetch(`${BACKEND_URL}/new`, {
+        method: "POST"
+      });
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      if (result.type == "error") throw new Error(result.message);
+
+      localStorage.setItem('lifescape', result.data);
+      return JSON.parse(result.data);
+    } 
+    else {
+      const data = JSON.parse(localStorage.getItem('lifescape'));
+      const response = await fetch(`${BACKEND_URL}/uuid/${data.uuid}`);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      if (result.type == "error") throw new Error(result.message);
+
+      localStorage.setItem('lifescape', result.data);
+      return JSON.parse(result.data);
+    }
+  }
+  catch (err) {
+    console.error(err);
+  }
+}
+
 const setStorage = async (data) => {
   try {
     await backupOnline(data);
@@ -43,7 +78,7 @@ const deleteLocalStorage = () => {
 
 const backupOnline = async (data) => {
   try {
-    const response = await fetch(`http://localhost:3000/uuid/${data.uuid}`, {
+    const response = await fetch(`${BACKEND_URL}/uuid/${data.uuid}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -116,6 +151,7 @@ export default {
   getLevel,
   getSkill,
   getLocalStorage,
+  getStorage,
   setStorage,
   deleteLocalStorage,
   backupOnline,

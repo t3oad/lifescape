@@ -76,7 +76,7 @@ const renderFooter = (parentNode) => {
       reader.addEventListener('load', async () => {
         try {
           const user = JSON.parse(reader.result);
-          await helpers.setLocalStorage(user);
+          await helpers.setStorage(user);
           location.assign(`./index.html`);
         }
         catch (err) {
