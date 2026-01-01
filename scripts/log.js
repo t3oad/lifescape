@@ -2,6 +2,7 @@
 
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
+import renderUUID from '../components/uuid.js'
 import helpers from '../scripts/helpers.js'
 
 const getLog = () => {
@@ -38,6 +39,7 @@ const render = () => {
 
   title.innerHTML = "LOG";
   renderQuote(root);
+  renderUUID(root);
   renderFooter(root);
 }
 

@@ -5,6 +5,7 @@ import renderSkill from '../components/skill.js'
 import renderTotalLevel from '../components/totalLevel.js'
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
+import renderUUID from '../components/uuid.js'
 import helpers from '../scripts/helpers.js'
 
 const populateSkills = (user) => {
@@ -24,11 +25,13 @@ const populateSkills = (user) => {
 const render = async () => {
   try {
     const root = document.getElementById('root');
-    const user = await helpers.getStorage();
-
-    populateSkills(user);
+    
     renderQuote(root);
+    renderUUID(root);
     renderFooter(root);
+
+    const user = await helpers.getStorage();
+    populateSkills(user);
   }
   catch (err) {
     console.error(err);

@@ -1,5 +1,6 @@
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
+import renderUUID from '../components/uuid.js'
 import renderNewActivity from '../components/newActivity.js'
 import renderEditActivity from '../components/editActivity.js'
 import helpers from '../scripts/helpers.js'
@@ -155,6 +156,7 @@ const render = () => {
   form.appendChild(submit);
   populateCard(form);
   renderQuote(root);
+  renderUUID(root);
   renderFooter(root);
 }
 

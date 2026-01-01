@@ -2,6 +2,7 @@
 
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
+import renderUUID from '../components/uuid.js'
 import renderActivity from '../components/activity.js'
 import helpers from '../scripts/helpers.js'
 
@@ -76,7 +77,9 @@ const render = () => {
   for (let i = 0; i < skill.activities.length; i++) {
     renderActivity(card, skill.activities[i]);
   }
+
   renderQuote(root);
+  renderUUID(root);
   renderFooter(root);
 }
 

@@ -1,5 +1,6 @@
 import renderFooter from '../components/footer.js'
 import renderQuote from '../components/quote.js'
+import renderUUID from '../components/uuid.js'
 import renderNewActivity from '../components/newActivity.js'
 import helpers from '../scripts/helpers.js'
 
@@ -130,6 +131,7 @@ const render = () => {
   //Build structure
   form.appendChild(submit);
   renderQuote(root);
+  renderUUID(root);
   renderFooter(root);
 }
 

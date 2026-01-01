@@ -68,8 +68,15 @@ const setStorage = async (data) => {
     localStorage.setItem("lifescape", JSON.stringify(data));
   }
   catch (err) {
-    console.error(err);
+    throw new Error(err.message);
   }
+}
+
+const setLocalUUID = (uuid) => {
+  let data = getLocalStorage();
+
+  data.uuid = uuid;
+  localStorage.setItem("lifescape", JSON.stringify(data));
 }
 
 const deleteLocalStorage = () => {
@@ -91,9 +98,10 @@ const backupOnline = async (data) => {
     }
 
     const result = await response.json();
+    if (result.type == "error") throw new Error(result.message);
   }
-  catch (error) {
-    console.error(error.message);
+  catch (err) {
+    throw new Error(err.message);
   }
 }
 
@@ -153,6 +161,7 @@ export default {
   getLocalStorage,
   getStorage,
   setStorage,
+  setLocalUUID,
   deleteLocalStorage,
   backupOnline,
   saveTemplateAsFile,
