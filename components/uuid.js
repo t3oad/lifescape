@@ -20,7 +20,7 @@ const renderUUID = (parentNode) => {
 
   //Add attributes and innerHTML
   summary.innerHTML = "Click to display your UUID"
-  UUID.innerHTML = localStorage.uuid;
+  UUID.innerHTML = localStorage ? localStorage.uuid : "No UUID assigned";
   inputUUID.type = "text"
   inputUUID.name = "input-uuid";
   inputUUID.placeholder = "UUID you would like to change to";

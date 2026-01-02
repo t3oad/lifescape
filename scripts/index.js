@@ -27,14 +27,15 @@ const render = async () => {
     const root = document.getElementById('root');
     
     renderQuote(root);
-    renderUUID(root);
     renderFooter(root);
 
     const user = await helpers.getStorage();
     populateSkills(user);
+    renderUUID(root);
   }
   catch (err) {
     console.error(err);
+    renderUUID(root);
   }
 }
 
